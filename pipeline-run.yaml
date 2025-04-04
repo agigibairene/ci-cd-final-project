@@ -1,0 +1,19 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: ci-cd-final-project-run
+  namespace: sn-labs-iagigiba
+spec:
+  pipelineRef:
+    name: ci-cd-final-project-pipeline
+  params:
+    - name: repo-url
+      value: https://github.com/agigibairene/ci-cd-final-project.git
+    - name: app-name
+      value: my-app
+    - name: build-image
+      value: image-registry.openshift-image-registry.svc:5000/sn-labs-iagigiba/my-app:latest
+  workspaces:
+    - name: output
+      persistentVolumeClaim:
+        claimName: oc-lab-pvc
